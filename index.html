@@ -32,6 +32,12 @@
       href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <!--Tailwind and Daisy UI-->
     <link
       href="https://cdn.jsdelivr.net/npm/daisyui@5"
@@ -148,7 +154,7 @@
       </div>
     </section>
     <!--Let's learn vocabularies section-->
-    <section class="lg:mt-44 mt-13">
+    <section class="lg:mt-44 mt-13 border border-black">
       <h2 class="font-bold text-3xl mb-5 text-center">
         <span class="text-[#00BCFF]">Let's</span> Learn Vocabularies
       </h2>
@@ -156,6 +162,20 @@
         id="lessons-level-container"
         class="flex gap-4 flex-wrap justify-center"
       ></div>
+    </section>
+    <!--Lesson 2 words section-->
+    <section
+      id="lesson-words-container"
+      class="bg-[#F8F8F8] rounded-3xl w-11/12 mx-auto p-7 mt-10 grid grid-cols-3 gap-7 items-stretch"
+    >
+      <div class="text-center col-span-3 my-8">
+        <p class="hind-siliguri text-[#79716B] text-sm mb-3">
+          আপনি এখনো কোন Lesson Select করেননি
+        </p>
+        <h2 class="font-medium hind-siliguri text-[#292524] text-3xl">
+          একটি Lesson Select করুন।
+        </h2>
+      </div>
     </section>
     <script src="script.js"></script>
   </body>
