@@ -12,3 +12,7 @@ body {
 .inter {
   font-family: "Inter", sans-serif;
 }
+.active {
+  background-color: #2200ff;
+  color: white;
+}

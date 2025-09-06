@@ -1,19 +1,41 @@
+// Fetch the levels (buttons) to line 6
 const fetchLevels = () => {
   fetch("https://openapi.programming-hero.com/api/levels/all")
     .then((response) => response.json())
     .then((lessonsData) => displayLessons(lessonsData.data));
 };
+// catch the level no's as a parameter "lessonNo", here "lesson no = level no"
 const loadLessonWords = (lessonNo) => {
+  // fetch the words dynamically according to the levels
   const url = `https://openapi.programming-hero.com/api/level/${lessonNo}`;
   fetch(url)
     .then((response) => response.json())
-    .then((data) => displayLessonWords(data.data));
+    .then((data) => {
+      // get the active button inside button container
+      const previousActive = document.querySelector(
+        "#lessons-level-container .active"
+      );
+      // remove the active button if there is
+      if (previousActive) {
+        previousActive.classList.remove("active");
+      }
+      // get the dynamic active button
+      const getActiveButton = document.getElementById(
+        `active-button-${lessonNo}`
+      );
+      // add active class to that button
+      getActiveButton.classList.add("active");
+      displayLessonWords(data.data);
+    });
 };
+// display all the words
 const displayLessonWords = (words) => {
+  // data = words
   const lessonWordsContainer = document.getElementById(
     "lesson-words-container"
   );
   lessonWordsContainer.innerHTML = "";
+  // if any level is empty, solve the error, show the below card/error message
   if (words.length == 0) {
     lessonWordsContainer.innerHTML = `
   <div class="text-center col-span-3 my-8">
@@ -26,8 +48,9 @@ const displayLessonWords = (words) => {
         </h2>
       </div>
   `;
-    return;
+    return; // must return
   }
+  // if there are words, then show the below card
   words.forEach((word) => {
     const wordCard = document.createElement("div");
     wordCard.innerHTML = `
@@ -60,7 +83,7 @@ const displayLessonWords = (words) => {
     lessonWordsContainer.append(wordCard);
   });
 };
-
+// display the lesson buttons
 const displayLessons = (lessons) => {
   const lessonsLevelContainer = document.getElementById(
     "lessons-level-container"
@@ -68,10 +91,14 @@ const displayLessons = (lessons) => {
   lessonsLevelContainer.innerHTML = "";
   lessons.forEach((lesson) => {
     const lessonButton = document.createElement("button");
-    lessonButton.innerHTML = `
-    <button onclick="loadLessonWords(${lesson.level_no})" class="btn bg-white text-[#422AD5] hover:text-white hover:bg-[#422AD5] btn-primary"><i class="fa-solid fa-book-open"></i> Lesson -${lesson.level_no}</button>
-    `;
+    // create a button, add event listener by calling "loadLessonWords" function sending level no's dynamically as arguments
+    lessonButton.innerHTML = `<i class="fa-solid fa-book-open"></i> Lesson -${lesson.level_no}`;
+    lessonButton.id = `active-button-${lesson.level_no}`;
+    lessonButton.onclick = () => loadLessonWords(lesson.level_no);
+    lessonButton.className =
+      "btn bg-white text-[#422AD5] hover:text-white hover:bg-[#422AD5] btn-primary";
     lessonsLevelContainer.append(lessonButton);
   });
 };
+// Call fetchLevel function
 fetchLevels();
