@@ -23,10 +23,61 @@ const loadLessonWords = (lessonNo) => {
       const getActiveButton = document.getElementById(
         `active-button-${lessonNo}`
       );
-      // add active class to that button
+      // add 'active' class to that button
       getActiveButton.classList.add("active");
       displayLessonWords(data.data);
     });
+};
+// Get words details
+const loadWordDetails = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/word/${id}`;
+  const response = await fetch(url);
+  const wordDetails = await response.json();
+  displayWordsDetails(wordDetails.data);
+};
+// Display words details
+const displayWordsDetails = (details) => {
+  console.log(details);
+  let synonymsHTML = "";
+  if (details.synonyms && details.synonyms.length > 0) {
+    synonymsHTML = details.synonyms
+      .map(
+        (synonym) =>
+          `<p class="text-base font-normal bg-[#EDF7FF] px-5 py-2 rounded-md">${synonym}</p>`
+      )
+      .join("");
+  } else {
+    synonymsHTML = `<p class="text-base font-normal bg-[#EDF7FF] px-5 py-2 rounded-md">
+      No synonyms found!
+    </p>`;
+  }
+
+  const wordsDetailsContainer = document.getElementById(
+    "words-details-container"
+  );
+  wordsDetailsContainer.innerHTML = `
+ <div class="border border-[#EDF7FF] p-5 rounded-xl">
+            <h2 class="font-semibold text-3xl">
+              ${details.word} (<i class="fa-solid fa-microphone-lines"></i>:${details.pronunciation})
+            </h2>
+            <div class="my-6">
+              <p class="font-semibold text-xl mb-2">Meaning</p>
+              <p class="font-medium hind-siliguri text-xl">${details.meaning}</p>
+            </div>
+
+            <div>
+              <p class="font-semibold text-xl mb-2">Example</p>
+              <p class="text-xl">${details.sentence}</p>
+            </div>
+            <p class="font-medium hind-siliguri text-xl mt-6 mb-3">
+              Synonyms
+            </p>
+            <div class="flex gap-2 flex-wrap">
+                ${synonymsHTML}             
+            </div>
+          </div>
+ `;
+  document.getElementById("modal").showModal();
 };
 // display all the words
 const displayLessonWords = (words) => {
@@ -67,7 +118,7 @@ const displayLessonWords = (words) => {
     }
         </p>
         <div class="flex justify-between items-center mt-auto">
-          <button
+          <button onclick = "loadWordDetails(${word.id})"
             class="bg-[rgba(26,144,255,0.1)] px-4 py-3 text-[#374957] rounded-lg cursor-pointer hover:text-black hover:bg-[rgba(26,144,255,0.2)]"
           >
             <i class="fa-solid fa-circle-info"></i>

@@ -154,7 +154,7 @@
       </div>
     </section>
     <!--Let's learn vocabularies section-->
-    <section class="lg:mt-44 mt-13 border border-black">
+    <section class="lg:mt-44 mt-13">
       <h2 class="font-bold text-3xl mb-5 text-center">
         <span class="text-[#00BCFF]">Let's</span> Learn Vocabularies
       </h2>
@@ -177,6 +177,23 @@
         </h2>
       </div>
     </section>
+    <!-- Open the modal using ID.showModal() method -->
+    <!-- <button class="btn" onclick="modal.showModal()">open modal</button> -->
+    <dialog id="modal" class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box rounded-3xl p-5">
+        <div id="words-details-container"></div>
+        <div class="mt-5">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button
+              class="bg-[#422AD5] text-white rounded-xl hind-siliguri px-8 py-[6px] cursor-pointer text-lg"
+            >
+              Complete Learning
+            </button>
+          </form>
+        </div>
+      </div>
+    </dialog>
     <script src="script.js"></script>
   </body>
 </html>
